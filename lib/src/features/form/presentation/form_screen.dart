@@ -1,44 +1,55 @@
 import 'package:flutter/material.dart';
 
-class FormScreen extends StatelessWidget {
-  // Attribute
-  // (keine)
-
-  // Konstruktor
+class FormScreen extends StatefulWidget {
   const FormScreen({super.key});
 
-  // Methoden
+  @override
+  _FormScreenState createState() => _FormScreenState();
+}
+
+class _FormScreenState extends State<FormScreen> {
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(32.0),
         child: Form(
-          child: Column(children: [
-            TextFormField(
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                label: Text("Email"),
+          key: _formKey,
+          child: Column(
+            children: [
+              TextFormField(
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  label: Text("Email"),
+                ),
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                validator: validateEmail,
               ),
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              validator: validateEmail,
-            ),
-            const SizedBox(height: 8),
-            TextFormField(
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                label: Text("Passwort"),
+              const SizedBox(height: 8),
+              TextFormField(
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  label: Text("Passwort"),
+                ),
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                validator: validatePw,
+                obscureText: true, // за да скрием паролата при въвеждане
               ),
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              validator: validatePw,
-              obscureText: true,
-            ),
-            const SizedBox(height: 32),
-            FilledButton(
-              onPressed: () {},
-              child: const Text("Login"),
-            ),
-          ]),
+              const SizedBox(height: 32),
+              FilledButton(
+                onPressed: () {
+                  if (_formKey.currentState?.validate() == true) {
+                    print("Form is valid");
+                  } else {
+                    print("Form is not valid");
+                  }
+                },
+                child: const Text("Login"),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -54,7 +65,7 @@ class FormScreen extends StatelessWidget {
     } else if (!(input.endsWith('.com') || input.endsWith('.de'))) {
       return 'Email muss mit “.com” oder “.de” enden.';
     }
-    return null; // keine Fehler
+    return null;
   }
 
   String? validatePw(String? input) {
