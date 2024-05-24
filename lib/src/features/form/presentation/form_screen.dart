@@ -31,6 +31,7 @@ class FormScreen extends StatelessWidget {
               ),
               autovalidateMode: AutovalidateMode.onUserInteraction,
               validator: validatePw,
+              obscureText: true, // за да скрием паролата при въвеждане
             ),
             const SizedBox(height: 32),
             FilledButton(
@@ -44,12 +45,24 @@ class FormScreen extends StatelessWidget {
   }
 
   String? validateEmail(String? input) {
-    // TODO: implementiere hier die Logik, die im Task Sheet beschrieben ist
-    return null;
+    if (input == null || input.isEmpty) {
+      return 'Email darf nicht leer sein.';
+    } else if (input.length <= 5) {
+      return 'Email muss mehr als 5 Zeichen haben.';
+    } else if (!input.contains('@')) {
+      return 'Email muss das Zeichen “@” enthalten.';
+    } else if (!(input.endsWith('.com') || input.endsWith('.de'))) {
+      return 'Email muss mit “.com” oder “.de” enden.';
+    }
+    return null; // keine Fehler
   }
 
   String? validatePw(String? input) {
-    // TODO: implementiere hier die Logik, die im Task Sheet beschrieben ist
-    return null;
+    if (input == null || input.isEmpty) {
+      return 'Passwort darf nicht leer sein.';
+    } else if (input.length < 6 || input.length > 12) {
+      return 'Passwort muss zwischen 6 und 12 Zeichen lang sein.';
+    }
+    return null; // keine Fehler
   }
 }
