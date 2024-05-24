@@ -31,7 +31,7 @@ class FormScreen extends StatelessWidget {
               ),
               autovalidateMode: AutovalidateMode.onUserInteraction,
               validator: validatePw,
-              obscureText: true, // за да скрием паролата при въвеждане
+              obscureText: true,
             ),
             const SizedBox(height: 32),
             FilledButton(
@@ -63,6 +63,6 @@ class FormScreen extends StatelessWidget {
     } else if (input.length < 6 || input.length > 12) {
       return 'Passwort muss zwischen 6 und 12 Zeichen lang sein.';
     }
-    return null; // keine Fehler
+    return null;
   }
 }
