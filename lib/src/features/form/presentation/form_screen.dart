@@ -23,7 +23,8 @@ class _FormScreenState extends State<FormScreen> {
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   label: Text("Email"),
-                  hintText: "Nur .com oder .de verwendete Email",
+                  hintText:
+                      "   es werden nur Emails mit .com oder .de verwendet",
                 ),
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: validateEmail,
